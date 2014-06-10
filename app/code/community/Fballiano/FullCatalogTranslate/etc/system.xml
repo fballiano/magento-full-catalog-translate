@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<fballiano_full_catalog_translate>
+			<tab>service</tab>
+			<label>Fballiano Full Catalog Translate</label>
+			<show_in_default>1</show_in_default>
+			<show_in_website>0</show_in_website>
+			<show_in_store>0</show_in_store>
+			<groups>
+				<general>
+					<label>General</label>
+					<show_in_default>1</show_in_default>
+					<show_in_website>0</show_in_website>
+					<show_in_store>0</show_in_store>
+					<sort_order>10</sort_order>
+					<fields>
+						<attributes_to_translate>
+							<label>Attributes to translate</label>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+							<comment>Comma separated list of attribute codes, only these attributes will be translated.</comment>
+						</attributes_to_translate>
+					</fields>
+				</general>
+				<google_translate>
+					<label>Google Translate</label>
+					<show_in_default>1</show_in_default>
+					<show_in_website>0</show_in_website>
+					<show_in_store>0</show_in_store>
+					<sort_order>20</sort_order>
+					<fields>
+						<api_key>
+							<label>API key</label>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</api_key>
+					</fields>
+				</google_translate>
+			</groups>
+		</fballiano_full_catalog_translate>
+	</sections>
+</config>

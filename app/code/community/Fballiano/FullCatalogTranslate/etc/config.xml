@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Fballiano_FullCatalogTranslate>
+			<version>0.1.0</version>
+		</Fballiano_FullCatalogTranslate>
+	</modules>
+	<global>
+		<helpers>
+			<fballiano_fullcatalogtranslate>
+				<class>Fballiano_FullCatalogTranslate_Helper</class>
+			</fballiano_fullcatalogtranslate>
+		</helpers>
+		<resources>
+			<fballiano_fullcatalogtranslate_setup>
+				<setup>
+					<module>Fballiano_FullCatalogTranslate</module>
+					<class>Mage_Catalog_Model_Resource_Setup</class>
+				</setup>
+			</fballiano_fullcatalogtranslate_setup>
+		</resources>
+	</global>
+	<default>
+		<fballiano_full_catalog_translate>
+			<general>
+				<attributes_to_translate>name, short_description, description, meta_title, meta_keyword, meta_description</attributes_to_translate>
+			</general>
+		</fballiano_full_catalog_translate>
+	</default>
+</config>
