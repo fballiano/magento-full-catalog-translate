@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Fballiano_FullCatalogTranslate>
+			<active>true</active>
+			<codePool>community</codePool>
+			<depends>
+				<Mage_Catalog/>
+			</depends>
+		</Fballiano_FullCatalogTranslate>
+	</modules>
+</config>
