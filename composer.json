@@ -1,0 +1,25 @@
+{
+   "name":"fballiano/magento-full-catalog-translate",
+   "license":"OSL-3.0",
+   "type":"magento-module",
+   "description":"Magento full catalog translation via Google Translate API",
+   "homepage":"https://github.com/fballiano/magento-full-catalog-translate",
+   "require":{
+      "php":">=5.3.0",
+      "magento-hackathon/magento-composer-installer":"*"
+   },
+   "repositories":[
+      {
+         "type":"composer",
+         "url":"http://packages.firegento.com"
+      }
+   ],
+   "authors":[
+      {
+         "name":"Fabrizio Balliano",
+         "email":"fabrizio@fabrizioballiano.it",
+         "homepage":"http://fabrizioballiano.it",
+         "role":"Developer"
+      }
+   ]
+}
