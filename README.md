@@ -36,6 +36,15 @@ Backup!!!
 Backup your database before launching the translation process!!!
 This module is provided "as is" and I'll not be responsible for any data damage.
 
+Installation
+------------
+
+Simply download the whole repository and copy everything to your Magento document root.
+Otherwise with modman:
+```shell
+modman clone https://github.com/fballiano/magento-full-catalog-translate
+```
+
 Compatibility
 -------------
 This module was developed on Magento 1.9.
