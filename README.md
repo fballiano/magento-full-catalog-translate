@@ -31,6 +31,12 @@ php fballiano_full_catalog_translate.php default storeviewita
 
 The process will gather all the products that need to be translated (from the target storeview), gather the untranslated text (from the source storeview), call Google Translate API for every attribute, import the translated text into the target store view, set the record to "not to be translated" (again, into the target storeview).
 
+Backup!!!
+---------
+
+Backup your database before launching the translation process!!!
+This module is provided "as is" and I'll not be responsible for any data damage.
+
 Some technical detail
 ---------------------
 To speed up a bit the import process, a patched version of [Magmi](http://sourceforge.net/projects/magmi/) it's included in the extension (lib/Magmi).
