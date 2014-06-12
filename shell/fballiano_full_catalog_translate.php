@@ -69,8 +69,8 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
         $appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
 
         $attribute_id = Mage::getModel("catalog/entity_attribute")->loadByCode(Mage_Catalog_Model_Product::ENTITY, "fb_translate")->getId();
-        $table_name = Mage::getSingleton("core/resource")->getTableName("catalog/product");
-        $products = Mage::getSingleton("core/resource")->getConnection("core_read")->fetchCol("SELECT entity_id FROM {$table_name}_int WHERE attribute_id={$attribute_id} AND store_id={$store_id_dest} AND value=1");
+        $table_name = Mage::getSingleton("core/resource")->getTableName("catalog_product_entity_int");
+        $products = Mage::getSingleton("core/resource")->getConnection("core_read")->fetchCol("SELECT entity_id FROM {$table_name} WHERE attribute_id={$attribute_id} AND store_id={$store_id_dest} AND value=1");
 
         try {
             $initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($this->store_source);
