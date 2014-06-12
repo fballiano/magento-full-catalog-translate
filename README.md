@@ -33,9 +33,13 @@ The process will gather all the products that need to be translated (from the ta
 
 Backup!!!
 ---------
-
 Backup your database before launching the translation process!!!
 This module is provided "as is" and I'll not be responsible for any data damage.
+
+Compatibility
+-------------
+This module was developed on Magento 1.9.
+If you have a different version of Magento and the module is working please drop me a line so I can update this compatibility list.
 
 Some technical detail
 ---------------------
