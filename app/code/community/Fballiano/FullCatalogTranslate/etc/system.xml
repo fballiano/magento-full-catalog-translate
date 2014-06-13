@@ -20,7 +20,9 @@
 							<show_in_default>1</show_in_default>
 							<show_in_website>0</show_in_website>
 							<show_in_store>0</show_in_store>
-							<comment>Comma separated list of attribute codes, only these attributes will be translated.</comment>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>fballiano_fullcatalogtranslate/translatableAttributes</source_model>
+							<comment>Only these attributes will be translated.</comment>
 						</attributes_to_translate>
 					</fields>
 				</general>

@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fballiano_FullCatalogTranslate>
-			<version>0.2.0</version>
+			<version>0.3.0</version>
 		</Fballiano_FullCatalogTranslate>
 	</modules>
 	<global>
@@ -11,6 +11,11 @@
 				<class>Fballiano_FullCatalogTranslate_Helper</class>
 			</fballiano_fullcatalogtranslate>
 		</helpers>
+		<models>
+			<fballiano_fullcatalogtranslate>
+				<class>Fballiano_FullCatalogTranslate_Model</class>
+			</fballiano_fullcatalogtranslate>
+		</models>
 		<resources>
 			<fballiano_fullcatalogtranslate_setup>
 				<setup>
@@ -23,7 +28,7 @@
 	<default>
 		<fballiano_full_catalog_translate>
 			<general>
-				<attributes_to_translate>name, short_description, description, meta_title, meta_keyword, meta_description</attributes_to_translate>
+				<attributes_to_translate>name,short_description,description,meta_title,meta_keyword,meta_description</attributes_to_translate>
 			</general>
 		</fballiano_full_catalog_translate>
 	</default>
