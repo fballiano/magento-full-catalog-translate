@@ -1,3 +1,7 @@
+0.4.0
+-----
+* a bug with Magmi and table prefixes was solved
+
 0.3.0
 -----
 * "Attribute to translate" config il now a multiselect

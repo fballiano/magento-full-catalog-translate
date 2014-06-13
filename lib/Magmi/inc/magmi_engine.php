@@ -47,6 +47,7 @@ abstract class Magmi_Engine extends DbHelper
 			$this->_conf->load();
 			
 			$this->tprefix=$this->_conf->get("DATABASE","table_prefix");
+            $this->tprefix=Mage::getConfig()->getTablePrefix();//FB: patch for magento
 			$this->_excid=0;
 			$this->_initialized=true;
 			$this->_exceptions=array();
