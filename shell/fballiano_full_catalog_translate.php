@@ -25,7 +25,9 @@ require_once 'abstract.php';
 class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
 {
     protected $helper = null;
+	protected $translation_system = null;
     protected $api_key = null;
+	protected $command = null;
     protected $store_source = null;
     protected $store_dest = null;
     protected $language_source = null;
@@ -37,10 +39,22 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
     public function run()
     {
         $this->helper = Mage::helper("fballiano_fullcatalogtranslate");
+	    $this->translation_system = $this->helper->getTranslationSystem();
         $this->attributes_to_translate = $this->helper->getAttributesToTranslate();
-        $this->api_key = $this->helper->getApiKey();
-        if (!$this->api_key) die("Please set your API key in the Magento admin configuration.\n");
-        $this->ws_url .= "?key={$this->api_key}";
+	    $this->api_key = $this->helper->getApiKey();
+	    $this->ws_url .= "?key={$this->api_key}";
+	    $this->command = $this->helper->getCommand();
+
+	    switch ($this->translation_system) {
+		    case "googletranslate":
+			    if (!$this->api_key) die("Please set your API key in the Magento admin configuration.\n");
+			    break;
+		    case "custom":
+			    if (!$this->command) die("Please set the translation command in the Magento admin configuration.\n");
+			    break;
+		    default:
+			    die("Unrecognized translation system: {$this->translation_system}.\n");
+	    }
 
         $args = array_keys($this->_args);
         $this->store_source = @$args[0];
@@ -93,10 +107,7 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
             $translated_row["fb_translate"] = "0"; //leave it as string otherwise magmi won't save it
             foreach ($this->attributes_to_translate as $attribute) {
                 if (strlen($row[$attribute])) {
-                    $ws_url = "{$this->ws_url}&q=" . urlencode($row[$attribute]);
-                    $translated = json_decode(file_get_contents($ws_url), true);
-                    $translated = $translated["data"]["translations"][0]["translatedText"];
-                    $translated_row[$attribute] = (string)$translated;
+	                $translated_row[$attribute] = $this->translateString($row[$attribute]);
                 }
             }
             $this->datapump->ingest($translated_row);
@@ -118,16 +129,30 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
         $translated_row["fb_translate"] = 0;
         foreach ($this->attributes_to_translate as $attribute) {
             if (strlen($row[$attribute])) {
-                $ws_url = "{$this->ws_url}&q=" . urlencode($row[$attribute]);
-                $translated = json_decode(file_get_contents($ws_url), true);
-                $translated = $translated["data"]["translations"][0]["translatedText"];
-                $translated_row[$attribute] = $translated;
+	            $translated_row[$attribute] = $this->translateString($row[$attribute]);
             }
         }
 
         $this->datapump->ingest($translated_row);
         echo "OK\n";
     }
+
+	public function translateString($string)
+	{
+		switch ($this->translation_system) {
+			case "googletranslate":
+				$ws_url = "{$this->ws_url}&q=" . urlencode($string);
+				$translated = json_decode(file_get_contents($ws_url), true);
+				return (string)$translated["data"]["translations"][0]["translatedText"];
+			case "custom":
+				$command = str_replace(
+					array("%SOURCELANGUAGE%", "%TARGETLANGUAGE%", "%STRING%"),
+					array($this->language_source, $this->language_dest, $string),
+					$this->command
+				);
+				return shell_exec($command);
+		}
+	}
 
     public function usageHelp()
     {

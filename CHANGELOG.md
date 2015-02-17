@@ -1,3 +1,7 @@
+0.5.0
+-----
+* support for custom translation command was introduced
+
 0.4.0
 -----
 * a bug with Magmi and table prefixes was solved

@@ -28,6 +28,7 @@
 	<default>
 		<fballiano_full_catalog_translate>
 			<general>
+                <translation_system>googletranslate</translation_system>
 				<attributes_to_translate>name,short_description,description,meta_title,meta_keyword,meta_description</attributes_to_translate>
 			</general>
 		</fballiano_full_catalog_translate>

@@ -42,4 +42,20 @@ class Fballiano_FullCatalogTranslate_Helper_Data extends Mage_Core_Helper_Abstra
     {
         return Mage::getStoreConfig("fballiano_full_catalog_translate/google_translate/api_key");
     }
+
+	/**
+	 * @return string
+	 */
+	public function getTranslationSystem()
+	{
+		return Mage::getStoreConfig("fballiano_full_catalog_translate/general/translation_system");
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCommand()
+	{
+		return Mage::getStoreConfig("fballiano_full_catalog_translate/custom/command");
+	}
 }

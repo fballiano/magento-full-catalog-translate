@@ -15,6 +15,14 @@
 					<show_in_store>0</show_in_store>
 					<sort_order>10</sort_order>
 					<fields>
+                        <translation_system>
+                            <label>Translation system</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <frontend_type>select</frontend_type>
+                            <source_model>fballiano_fullcatalogtranslate/translationSystems</source_model>
+                        </translation_system>
 						<attributes_to_translate>
 							<label>Attributes to translate</label>
 							<show_in_default>1</show_in_default>
@@ -41,6 +49,22 @@
 						</api_key>
 					</fields>
 				</google_translate>
+                <custom>
+                    <label>Custom translation system</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <sort_order>30</sort_order>
+                    <fields>
+                        <command>
+                            <label>Command</label>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <comment><![CDATA[Type the complete command here (eg: /bin/mytranslator.sh <span style="white-space:nowrap">--source="%SOURCELANGUAGE%"</span> <span style="white-space:nowrap">--to="%TARGETLANGUAGE%"</span> <span style="white-space:nowrap">--string="%STRING%"</span>)]]></comment>
+                        </command>
+                    </fields>
+                </custom>
 			</groups>
 		</fballiano_full_catalog_translate>
 	</sections>
