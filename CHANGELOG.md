@@ -1,3 +1,6 @@
+0.6.0
+* support for debug and dry run was added to the fballiano_full_catalog_translate.php shell script
+
 0.5.0
 -----
 * support for custom translation command was introduced

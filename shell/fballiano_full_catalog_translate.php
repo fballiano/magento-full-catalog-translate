@@ -35,9 +35,14 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
     protected $ws_url = "https://www.googleapis.com/language/translate/v2";
     protected $attributes_to_translate = null;
     protected $datapump = null;
+	protected $debug_mode = false;
+	protected $dry_run = false;
 
     public function run()
     {
+	    $this->debug_mode = $this->getArg("debug");
+	    $this->dry_run = $this->getArg("dry");
+	    if ($this->dry_run) $this->debug_mode = true;
         $this->helper = Mage::helper("fballiano_fullcatalogtranslate");
 	    $this->translation_system = $this->helper->getTranslationSystem();
         $this->attributes_to_translate = $this->helper->getAttributesToTranslate();
@@ -101,6 +106,7 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
             $row = $product->getData();
 
             echo "Translating {$row["sku"]} from {$this->language_source} to {$this->language_dest}... ";
+	        if ($this->debug_mode) echo "\n";
             $translated_row = array();
             $translated_row["store"] = (string)$this->store_dest;
             $translated_row["sku"] = (string)$row["sku"];
@@ -109,8 +115,11 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
                 if (strlen($row[$attribute])) {
 	                $translated_row[$attribute] = $this->translateString($row[$attribute]);
                 }
+	            if ($this->debug_mode) {
+		            echo "\t[$attribute] [{$row[$attribute]}] -> [{$translated_row[$attribute]}]\n";
+	            }
             }
-            $this->datapump->ingest($translated_row);
+	        if (!$this->dry_run) $this->datapump->ingest($translated_row);
             echo "OK\n";
         }
 
@@ -123,6 +132,7 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
     {
         $row = $args["row"];
         echo "Translating {$row["sku"]} from {$this->language_source} to {$this->language_dest}... ";
+	    if ($this->debug_mode) echo "\n";
         $translated_row = array();
         $translated_row["store"] = $this->store_dest;
         $translated_row["sku"] = $row["sku"];
@@ -131,9 +141,12 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
             if (strlen($row[$attribute])) {
 	            $translated_row[$attribute] = $this->translateString($row[$attribute]);
             }
+	        if ($this->debug_mode) {
+		        echo "\t[$attribute] [{$row[$attribute]}] -> [{$this->language_dest} {$translated_row[$attribute]}]\n";
+	        }
         }
 
-        $this->datapump->ingest($translated_row);
+	    if (!$this->dry_run) $this->datapump->ingest($translated_row);
         echo "OK\n";
     }
 
@@ -142,6 +155,7 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
 		switch ($this->translation_system) {
 			case "googletranslate":
 				$ws_url = "{$this->ws_url}&q=" . urlencode($string);
+				if ($this->debug_mode) echo "\t{$ws_url}\n";
 				$translated = json_decode(file_get_contents($ws_url), true);
 				return (string)$translated["data"]["translations"][0]["translatedText"];
 			case "custom":
@@ -150,6 +164,7 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
 					array($this->language_source, $this->language_dest, $string),
 					$this->command
 				);
+				if ($this->debug_mode) echo "\t{$command}\n";
 				return shell_exec($command);
 		}
 	}
@@ -158,7 +173,10 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
     {
         return <<<USAGE
 
-Usage:  php -f fballiano_full_catalog_translate.php source_store_view_code target_store_view_code
+Usage:\tphp -f fballiano_full_catalog_translate.php source_store_view_code target_store_view_code [-debug] [-dry]
+
+-debug\tshows every call to traslation systems and the results
+-dry\ttranslates everything (automatically enables debug also) but do not save anything on the database
 
 USAGE;
     }
