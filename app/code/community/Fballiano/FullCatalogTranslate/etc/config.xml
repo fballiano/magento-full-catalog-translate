@@ -2,7 +2,7 @@
 <config>
 	<modules>
 		<Fballiano_FullCatalogTranslate>
-			<version>0.4.0</version>
+			<version>0.7.0</version>
 		</Fballiano_FullCatalogTranslate>
 	</modules>
 	<global>
@@ -30,6 +30,7 @@
 			<general>
                 <translation_system>googletranslate</translation_system>
 				<attributes_to_translate>name,short_description,description,meta_title,meta_keyword,meta_description</attributes_to_translate>
+                <category_attributes_to_translate>name,description,meta_title,meta_keyword,meta_description</category_attributes_to_translate>
 			</general>
 		</fballiano_full_catalog_translate>
 	</default>
