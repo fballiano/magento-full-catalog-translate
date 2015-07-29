@@ -134,20 +134,22 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
 
 	public function translateCategories($store_id_dest)
 	{
+		$appEmulation = Mage::getSingleton("core/app_emulation");
 		$attribute_id = Mage::getModel("catalog/entity_attribute")->loadByCode(Mage_Catalog_Model_Category::ENTITY, "fb_translate")->getId();
 		$table_name = Mage::getSingleton("core/resource")->getTableName("catalog_category_entity_int");
 		$categories = Mage::getSingleton("core/resource")->getConnection("core_read")->fetchCol("SELECT entity_id FROM {$table_name} WHERE attribute_id={$attribute_id} AND store_id={$store_id_dest} AND value=1");
 
-		$category = Mage::getModel("catalog/category");
 		foreach ($categories as $category_id) {
+			$initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($this->store_source);
+			$category = Mage::getModel("catalog/category");
 			$category->load($category_id);
 			$row = $category->getData();
+			$appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
+
 			echo "Translating category {$row["entity_id"]} from {$this->language_source} to {$this->language_dest}... ";
 			if ($this->debug_mode) echo "\n";
 			$translated_row = array();
-			$translated_row["store"] = (string)$this->store_dest;
-			$translated_row["sku"] = (string)$row["sku"];
-			$translated_row["fb_translate"] = "0"; //leave it as string otherwise magmi won't save it
+			$translated_row["fb_translate"] = 0;
 			foreach ($this->category_attributes_to_translate as $attribute) {
 				if (strlen($row[$attribute])) {
 					$translated_row[$attribute] = $this->translateString($row[$attribute]);
@@ -157,7 +159,12 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
 				}
 			}
 			if (!$this->dry_run) {
-
+				$initialEnvironmentInfo = $appEmulation->startEnvironmentEmulation($this->store_dest);
+				$category = Mage::getModel("catalog/category");
+				$category->load($category_id);
+				$category->addData($translated_row);
+				$category->save();
+				$appEmulation->stopEnvironmentEmulation($initialEnvironmentInfo);
 			}
 			echo "OK\n";
 		}
