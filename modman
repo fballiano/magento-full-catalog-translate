@@ -1,3 +1,4 @@
-app/*       app
-lib/*       lib
-shell/*     shell
+app/code/community/Fballiano/FullCatalogTranslate app/code/community/Fballiano/FullCatalogTranslate
+app/etc/modules/Fballiano_FullCatalogTranslate.xml app/etc/modules/Fballiano_FullCatalogTranslate.xml
+lib/Magmi lib/Magmi
+shell/fballiano_full_catalog_translate.php shell/fballiano_full_catalog_translate.php
