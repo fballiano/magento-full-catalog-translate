@@ -1,3 +1,11 @@
+0.7.0
+-----
+* categories translation was added
+
+0.6.1
+-----
+* fixed modman file
+
 0.6.0
 -----
 * support for debug and dry run was added to the fballiano_full_catalog_translate.php shell script
