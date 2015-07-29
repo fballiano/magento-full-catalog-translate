@@ -34,6 +34,7 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
     protected $language_dest = null;
     protected $ws_url = "https://www.googleapis.com/language/translate/v2";
     protected $attributes_to_translate = null;
+	protected $category_attributes_to_translate = null;
     protected $datapump = null;
 	protected $debug_mode = false;
 	protected $dry_run = false;
@@ -46,6 +47,7 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
         $this->helper = Mage::helper("fballiano_fullcatalogtranslate");
 	    $this->translation_system = $this->helper->getTranslationSystem();
         $this->attributes_to_translate = $this->helper->getAttributesToTranslate();
+	    $this->category_attributes_to_translate = $this->helper->getCategoryAttributesToTranslate();
 	    $this->api_key = $this->helper->getApiKey();
 	    $this->ws_url .= "?key={$this->api_key}";
 	    $this->command = $this->helper->getCommand();
@@ -100,6 +102,8 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
         $this->language_source = substr(Mage::app()->getLocale()->getLocaleCode(), 0, 2);
         $this->ws_url .= "&source={$this->language_source}";
 
+	    $this->translateCategories($store_id_dest);
+
         $product = Mage::getModel("catalog/product");
         foreach ($products as $product_id) {
             $product->load($product_id);
@@ -127,6 +131,39 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
         $this->datapump->endImportSession();
         echo "Terminated\n";
     }
+
+	public function translateCategories($store_id_dest)
+	{
+		$attribute_id = Mage::getModel("catalog/entity_attribute")->loadByCode(Mage_Catalog_Model_Category::ENTITY, "fb_translate")->getId();
+		$table_name = Mage::getSingleton("core/resource")->getTableName("catalog_category_entity_int");
+		$categories = Mage::getSingleton("core/resource")->getConnection("core_read")->fetchCol("SELECT entity_id FROM {$table_name} WHERE attribute_id={$attribute_id} AND store_id={$store_id_dest} AND value=1");
+
+		$category = Mage::getModel("catalog/category");
+		foreach ($categories as $category_id) {
+			$category->load($category_id);
+			$row = $category->getData();
+			echo "Translating category {$row["entity_id"]} from {$this->language_source} to {$this->language_dest}... ";
+			if ($this->debug_mode) echo "\n";
+			$translated_row = array();
+			$translated_row["store"] = (string)$this->store_dest;
+			$translated_row["sku"] = (string)$row["sku"];
+			$translated_row["fb_translate"] = "0"; //leave it as string otherwise magmi won't save it
+			foreach ($this->category_attributes_to_translate as $attribute) {
+				if (strlen($row[$attribute])) {
+					$translated_row[$attribute] = $this->translateString($row[$attribute]);
+				}
+				if ($this->debug_mode) {
+					echo "\t[$attribute] [{$row[$attribute]}] -> [{$translated_row[$attribute]}]\n";
+				}
+			}
+			if (!$this->dry_run) {
+
+			}
+			echo "OK\n";
+		}
+
+		die();
+	}
 
     public function productCollectionWalkCallback($args)
     {

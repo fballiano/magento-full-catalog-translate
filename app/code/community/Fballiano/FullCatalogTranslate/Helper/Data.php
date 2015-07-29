@@ -35,6 +35,20 @@ class Fballiano_FullCatalogTranslate_Helper_Data extends Mage_Core_Helper_Abstra
         return $attributes;
     }
 
+	/**
+	 * @return array
+	 */
+	public function getCategoryAttributesToTranslate()
+	{
+		$attributes = Mage::getStoreConfig("fballiano_full_catalog_translate/general/category_attributes_to_translate");
+		$attributes = explode(",", $attributes);
+		foreach ($attributes as $k=>$v) {
+			$attributes[$k] = trim($v);
+		}
+
+		return $attributes;
+	}
+
     /**
      * @return string
      */
