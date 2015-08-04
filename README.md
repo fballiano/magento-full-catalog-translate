@@ -14,7 +14,7 @@ So go in your "Catalog -> Manage products" mask in the Magento backend, select t
 Now we have products in English and products marked as "to be translated" in our Italian storeview.
 
 Let's step back a little bit: configuration.
-Before actually translating our contents you need to review come configurations of the module, go to the Magento backend mask "System -> Configuration -> Services -> Fballiano Full Catalog Translate".
+Before actually translating our contents you need to review some configurations of the module, go to the Magento backend mask "System -> Configuration -> Services -> Fballiano Full Catalog Translate".
 Here can decide which product attributes have to be translated (defaults: name, short_description, description, meta_title, meta_keyword, meta_description) but most importantly you'll have to fill your Google Translate API key (without it nothing will actually work).
 
 Open the console and navigate to the "shell" directory.
