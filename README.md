@@ -9,7 +9,7 @@ When you install the module it will create a new product attribute called "Trans
 
 Let's say you have your main store in English, then you create a storeview in Italian, now all of your products in the Italian store view have the English texts. What you want is to quickly have them in Italian. Be sure the locales are correctly configured for all the stores/storeviews you're going to use in the process (this module will automatically read the language settings from the storeviews).
 
-So go in your "Catalog -> Manage products" mask in the Magento backend, select the Italian store view (or anyway the one you want to translate), then with the mass action tools selects all the products and "update attributes", now set the "Translate automatically?" attribute to yes. This means that these products for this store view neeed to be translated (we'll see later how and from what language to what language).
+So go to your "Catalog -> Manage products" mask in the Magento backend, select the Italian store view (or anyway the one you want to translate), then with the mass action tools selects all the products and "update attributes", now set the "Translate automatically?" attribute to yes. This means that these products for this store view need to be translated (we'll see later how and from what language to what language).
 
 Now we have products in English and products marked as "to be translated" in our Italian storeview.
 
