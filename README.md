@@ -66,7 +66,7 @@ Any contributions are highly appreciated. The best way to contribute code is to 
 Developer
 ---------
 Fabrizio Balliano
-[http://fabrizioballiano.it](http://fabrizioballiano.com)  
+[http://fabrizioballiano.com](http://fabrizioballiano.com)  
 [@fballiano](https://twitter.com/fballiano)
 
 Licence
