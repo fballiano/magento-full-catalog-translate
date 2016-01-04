@@ -56,7 +56,7 @@ To speed up a bit the import process, a patched version of [Magmi](http://source
 
 Support
 -------
-If you have any issues with this extension, open an issue on GitHub (see URL above).
+If you have any issues with this extension, open an issue on GitHub.
 
 Contribution
 ------------
@@ -65,7 +65,7 @@ Any contributions are highly appreciated. The best way to contribute code is to 
 
 Developer
 ---------
-Fabrizio Balliano
+Fabrizio Balliano  
 [http://fabrizioballiano.com](http://fabrizioballiano.com)  
 [@fballiano](https://twitter.com/fballiano)
 
