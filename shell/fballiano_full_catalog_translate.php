@@ -168,8 +168,6 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
 			}
 			echo "OK\n";
 		}
-
-		die();
 	}
 
     public function productCollectionWalkCallback($args)
