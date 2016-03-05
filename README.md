@@ -54,6 +54,11 @@ Some technical detail
 ---------------------
 To speed up a bit the import process, a patched version of [Magmi](http://sourceforge.net/projects/magmi/) it's included in the extension (lib/Magmi).
 
+TODO
+----
+
+Remove magmi and migrate to https://github.com/avstudnitz/AvS_FastSimpleImport
+
 Support
 -------
 If you have any issues with this extension, open an issue on GitHub.
