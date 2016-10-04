@@ -31,6 +31,10 @@ php fballiano_full_catalog_translate.php default storeviewita
 
 The process will gather all the products that need to be translated (from the target storeview), gather the untranslated text (from the source storeview), call Google Translate API for every attribute, import the translated text into the target store view, set the record to "not to be translated" (again, into the target storeview).
 
+Google Translate characters limit!
+----------------------------------
+Google Translate APIs only supports a maximum of 5,000 characters in a single request. If you setup this module to use Google Translate, be sure that your products' descriptions are less than 5,000 characters long!
+
 Backup!!!
 ---------
 Backup your database before launching the translation process!!!
