@@ -1,3 +1,14 @@
+0.7.2
+-----
+* mbstring extension is required (check added) if you use Google Translate API.
+* if you translate an attribute that has a text longer than 5000 chars with
+  Google Translate API, the script will output a warning and skip that specific
+  attribute for that specific product.
+
+0.7.1
+-----
+* solved issue #12
+
 0.7.0
 -----
 * categories translation was added

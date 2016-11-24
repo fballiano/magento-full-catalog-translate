@@ -55,6 +55,7 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
 	    switch ($this->translation_system) {
 		    case "googletranslate":
 			    if (!$this->api_key) die("Please set your API key in the Magento admin configuration.\n");
+                if (!function_exists("mb_strlen")) die("Please install mbstring PHP extension\n");
 			    break;
 		    case "custom":
 			    if (!$this->command) die("Please set the translation command in the Magento admin configuration.\n");
@@ -181,11 +182,15 @@ class Fballiano_FullCatalogTranslate_Shell extends Mage_Shell_Abstract
         $translated_row["fb_translate"] = 0;
         foreach ($this->attributes_to_translate as $attribute) {
             if (strlen($row[$attribute])) {
+                if ($this->translation_system == "googletranslate" and mb_strlen($translated_row[$attribute]) >= 5000 ) {
+                    echo "\t[$attribute] more than 5000 chars long, unsupported by Google Translate, not translated\n";
+                    continue;
+                }
 	            $translated_row[$attribute] = $this->translateString($row[$attribute]);
+                if ($this->debug_mode) {
+                    echo "\t[$attribute] [{$row[$attribute]}] -> [{$this->language_dest} {$translated_row[$attribute]}]\n";
+                }
             }
-	        if ($this->debug_mode) {
-		        echo "\t[$attribute] [{$row[$attribute]}] -> [{$this->language_dest} {$translated_row[$attribute]}]\n";
-	        }
         }
 
 	    if (!$this->dry_run) $this->datapump->ingest($translated_row);
