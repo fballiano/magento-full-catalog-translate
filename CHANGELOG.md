@@ -1,3 +1,8 @@
+0.7.3
+-----
+* code reformat
+* Google Translate API URL was changed (now is "https://translation.googleapis.com/language/translate/v2")
+
 0.7.2
 -----
 * mbstring extension is required (check added) if you use Google Translate API.

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * FBalliano
  *
@@ -19,7 +20,6 @@
  * @copyright  Copyright (c) 2014 Fabrizio Balliano (http://fabrizioballiano.it)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 class Fballiano_FullCatalogTranslate_Model_TranslatableAttributes
 {
     public function toOptionArray()
